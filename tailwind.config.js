@@ -1,18 +1,17 @@
 /** @type {import('tailwindcss').Config} */
+const defaultTheme = require('tailwindcss/defaultTheme');
+
 module.exports = {
   content: [
     "./pages/**/*.{js,ts,jsx,tsx}",
     "./components/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    fontFamily: {
-      'heading': ['Oswald'],
-      'text': ['"Open Sans"'],
+    extend: {
+      fontFamily: {
+        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+      },
     },
-    extend: {},
   },
-  plugins: [require("daisyui")],
-  daisyui: {
-    themes: ["business", "cupcake"]
-  }
+  plugins: ['@tailwindcss/forms'],
 }

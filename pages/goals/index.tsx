@@ -2,7 +2,7 @@ import React from 'react';
 
 const GoalsIndexPage = () => {
   return (
-    <h1>Please add a goal</h1>
+    <h1>No Goals present. Please create one to continue</h1>
   )
 }
 
