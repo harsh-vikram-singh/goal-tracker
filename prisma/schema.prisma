@@ -11,17 +11,19 @@ datasource db {
 }
 
 model Account {
-  id                String  @id @default(cuid())
+  id                String   @id @default(cuid())
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
   userId            String
   type              String
   provider          String
   providerAccountId String
-  refresh_token     String? @db.Text
-  access_token      String? @db.Text
+  refresh_token     String?  @db.Text
+  access_token      String?  @db.Text
   expires_at        Int?
   token_type        String?
   scope             String?
-  id_token          String? @db.Text
+  id_token          String?  @db.Text
   session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
@@ -38,13 +40,17 @@ model Session {
 }
 
 model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  accounts      Account[]
-  sessions      Session[]
+  id              String            @id @default(cuid())
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  name            String?
+  email           String?           @unique
+  emailVerified   DateTime?
+  image           String?
+  accounts        Account[]
+  sessions        Session[]
+  Goal            Goal[]
+  ProgressTracker ProgressTracker[]
 }
 
 model VerificationToken {
@@ -53,4 +59,30 @@ model VerificationToken {
   expires    DateTime
 
   @@unique([identifier, token])
+}
+
+model Goal {
+  id                                String            @id @default(cuid())
+  createdAt                         DateTime          @default(now())
+  updatedAt                         DateTime          @updatedAt
+  goalTitle                         String
+  goalDescription                   String
+  goalStartDate                     DateTime
+  goalEndDate                       DateTime
+  goalRequiredSuccessfulDaysPercent Int
+  user                              User              @relation(fields: [userId], references: [id])
+  userId                            String
+  ProgressTracker                   ProgressTracker[]
+}
+
+model ProgressTracker {
+  id        String   @id @default(cuid())
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  entryDate DateTime
+  Status    String
+  goal      Goal     @relation(fields: [goalId], references: [id])
+  goalId    String
+  user      User     @relation(fields: [userId], references: [id])
+  userId    String
 }

@@ -1,6 +1,7 @@
 import React from "react";
 import InputWithValidationError from "components/InputWithValidationError";
 import TextAreaWithMaxLength from "components/TextAreaWithMaxLength";
+import { useSession } from "next-auth/react";
 
 interface GoalData {
   goalTitle: string;
@@ -27,6 +28,7 @@ const CreateGoal = () => {
   };
 
   const [goalData, setGoalData] = React.useState<GoalData>(emptyGoalData);
+  const { data: userData, status} = useSession();
 
   const handleFormDataUpdate = (data: FormDateUpdateShape) => {
     console.log('data: ', data);
@@ -40,9 +42,21 @@ const CreateGoal = () => {
     setGoalData(emptyGoalData);
   }
 
-  const handleSubmit = (e: any) => {
+  const handleSubmit = async (e: any) => {
     e.preventDefault();
     console.log('goal data:', goalData );
+    const endPoint = '/api/goals/create' // remove the hard coded string
+    const userGoalData = {...goalData, userEmailId: userData?.user?.email}
+    const options = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(userGoalData)
+    };
+    const response = await fetch(endPoint, options);
+    const result = await response.json();
+    console.log('result: ', result);
   }
   return (
     <div className="grid grid-cols-3 gap-4">
