@@ -3,7 +3,7 @@ import InputWithValidationError from "components/InputWithValidationError";
 import TextAreaWithMaxLength from "components/TextAreaWithMaxLength";
 import { useSession } from "next-auth/react";
 
-interface GoalData {
+export interface GoalDataInterface {
   goalTitle: string;
   goalDescription: string;
   goalStartDate: string;
@@ -27,7 +27,7 @@ const CreateGoal = () => {
     goalRequiredSuccessfulDaysPercent: 80
   };
 
-  const [goalData, setGoalData] = React.useState<GoalData>(emptyGoalData);
+  const [goalData, setGoalData] = React.useState<GoalDataInterface>(emptyGoalData);
   const { data: userData, status} = useSession();
 
   const handleFormDataUpdate = (data: FormDateUpdateShape) => {

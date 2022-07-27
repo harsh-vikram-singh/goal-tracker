@@ -22,7 +22,7 @@ const getUserGoals = async (req: NextApiRequest, res: NextApiResponse) => {
   console.log('query: ', query);
   console.log('body: ', body);
   console.log('cookies: ', cookies);
-  res.status(200).json({message: 'OK', goals: session?.user.Goal});
+  res.status(200).json({goals: session?.user.Goal});
 };
 
 export default getUserGoals;
