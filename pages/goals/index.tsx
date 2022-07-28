@@ -1,13 +1,14 @@
 import React from 'react';
 import { useSession } from 'next-auth/react';
-import useUserGoals from 'data/goal';
-import { GoalDataInterface } from './create';
+import { useUserAllGoals } from 'data/goal';
+import { CreateGoalDataInterface } from './create';
 import HeadingWithAction from 'components/HeadingWithAction';
 import NarrowContainer from 'components/layouts/NarrowContainer';
 import GoalInfo from 'components/GoalInfo';
 import { WhiteButton } from 'components/buttons';
 import Link from 'next/link';
 
+export type GoalDataResponse = CreateGoalDataInterface & {goalId: string};
 const GoalsIndexPage = () => {
   const { data, status } = useSession();
   const {
@@ -15,8 +16,10 @@ const GoalsIndexPage = () => {
     isUserGoalsLoading,
     userGoalsData,
     userGoalsError
-  } = useUserGoals();
+  } = useUserAllGoals();
 
+
+  console.log('user goals: ', userGoalsData);
   const createNewGoalClickHandler = () => {
     console.log('click');
   }
@@ -51,10 +54,12 @@ const GoalsIndexPage = () => {
           <p>Loading Goals</p>
         ) : (
           <ul role='list' className='divide-y'>
-            {userGoalsData.goals.map((goal: GoalDataInterface, idx: number) => {
+            {userGoalsData.goals.map((goal: GoalDataResponse, idx: number) => {
               return (
                 <GoalInfo
-                  key={idx}
+                  key={goal.goalId}
+                  goalKey={idx}
+                  goalId={goal.goalId}
                   goalTitle={goal.goalTitle}
                   goalDescription={goal.goalDescription}
                   goalStartDate={goal.goalStartDate}

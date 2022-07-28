@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 
-const fetchUserGoals = async () => {
+const fetchAllUserGoals = async () => {
   const response = await fetch('/api/goals');
   if (!response.ok) {
     throw new Error('Error fetching user goals');
@@ -8,13 +8,36 @@ const fetchUserGoals = async () => {
   return response.json()
 };
 
-const useUserGoals = () => {
+const fetchOneUserGoal = async (goalId: string) => {
+  const response = await fetch(`/api/goals/${goalId}`);
+  if (!response.ok) {
+    throw new Error('Error fetching single user goal');
+  }
+  return response.json();
+}
+
+const useUserGoal = (goalId: string) => {
+  const {
+    isLoading: isUserGoalLoading,
+    isError: isUserGoalError,
+    data: userGoalData,
+    error: userGoalError
+  } = useQuery([`userGoal${goalId}`, goalId], () => fetchOneUserGoal(goalId))
+  return {
+    isUserGoalLoading,
+    isUserGoalError,
+    userGoalData,
+    userGoalError,
+  }
+};
+
+const useUserAllGoals = () => {
   const {
     isLoading: isUserGoalsLoading, 
     isError: isUserGoalsError,
     data: userGoalsData,
     error: userGoalsError
-  } = useQuery(['userGoals'], fetchUserGoals);
+  } = useQuery(['userGoals'], fetchAllUserGoals);
   return {
     isUserGoalsError,
     isUserGoalsLoading,
@@ -23,4 +46,7 @@ const useUserGoals = () => {
   }
 }
 
-export default useUserGoals;
+export { 
+  useUserAllGoals,
+  useUserGoal
+}

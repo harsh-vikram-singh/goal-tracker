@@ -1,13 +1,18 @@
 import React from 'react';
 import {TrashIcon} from '@heroicons/react/outline'
-import { GoalDataInterface } from 'pages/goals/create';
+import { GoalDataResponse } from 'pages/goals';
+import Link from 'next/link';
 
-type GoalInfoProps = GoalDataInterface & {
+
+type GoalInfoProps = GoalDataResponse & {
+  goalKey: number;
   handleEdit: () => void;
   handleDelete: () => void;
 }
 
 const GoalInfo = ({
+  goalKey,
+  goalId,
   goalTitle,
   goalDescription,
   goalStartDate,
@@ -29,7 +34,12 @@ const GoalInfo = ({
         </div>
         <div className='flex gap-10 items-center justify-end'>
           <button className='border p-2 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>Update Progress</button>
-          <button className='border w-auto p-2 px-4 rounded shadow hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' onClick={handleEdit}>Edit</button>
+          {/* <button className='border w-auto p-2 px-4 rounded shadow hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' onClick={handleEdit}>
+            Edit
+          </button> */}
+          <Link href={`/goals/edit/${goalKey}`}>
+            <a>Edit</a>
+          </Link>
           <TrashIcon className='w-6 text-red-600 hover:cursor-pointer' onClick={handleDelete}/>
         </div>
       </div>
