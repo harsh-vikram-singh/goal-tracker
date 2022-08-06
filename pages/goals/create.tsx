@@ -2,6 +2,7 @@ import React from "react";
 import InputWithValidationError from "components/InputWithValidationError";
 import TextAreaWithMaxLength from "components/TextAreaWithMaxLength";
 import { useSession } from "next-auth/react";
+import NarrowContainer from "components/layouts/NarrowContainer";
 
 export interface CreateGoalDataInterface {
   goalTitle: string;
@@ -55,8 +56,7 @@ const CreateGoal = () => {
     const result = await response.json();
   }
   return (
-    <div className="grid grid-cols-3 gap-4">
-      <div className="col-start-2 border shadow-lg hover:shadow-cyan-500/50 mt-10 p-8 rounded-lg flex flex-col">
+      <NarrowContainer className="max-w-lg border shadow-lg hover:shadow-cyan-500/50 mt-10 p-8 rounded-lg flex flex-col">
         <h4>Create Goal Page</h4>
         <form className="pt-4" onSubmit={e => handleSubmit(e)}
           onChange={e => handleFormDataUpdate({key: e.target.name, value: e.target.value})} 
@@ -135,8 +135,7 @@ const CreateGoal = () => {
             </div>
           </div>
         </form>
-      </div>
-    </div>
+      </NarrowContainer>
   );
 };
 
