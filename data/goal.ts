@@ -1,4 +1,7 @@
 import { useQuery } from '@tanstack/react-query';
+import { CreateGoalDataInterface } from 'pages/goals/create';
+
+export type UserGoalInterface = CreateGoalDataInterface & {goalId: string}
 
 const fetchAllUserGoals = async () => {
   const response = await fetch('/api/goals');

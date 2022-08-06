@@ -1,16 +1,19 @@
 import React from 'react';
+import { useQueryClient } from '@tanstack/react-query';
 import { useSession } from 'next-auth/react';
 import { useUserAllGoals } from 'data/goal';
 import { CreateGoalDataInterface } from './create';
 import HeadingWithAction from 'components/HeadingWithAction';
 import NarrowContainer from 'components/layouts/NarrowContainer';
 import GoalInfo from 'components/GoalInfo';
-import { WhiteButton } from 'components/buttons';
 import Link from 'next/link';
+import useDeleteGoal from 'data/deleteGoal'
+
 
 export type GoalDataResponse = CreateGoalDataInterface & {goalId: string};
 const GoalsIndexPage = () => {
   const { data, status } = useSession();
+  const queryClient = useQueryClient();
   const {
     isUserGoalsError,
     isUserGoalsLoading,
@@ -27,9 +30,22 @@ const GoalsIndexPage = () => {
   const handleEdit = () => {
     console.log('edit goal')
   }
+  const {
+    deleteUserGoal,
+    deleteUserGoalError,
+    deleteUserGoalLoading,
+    deleteUserGoalResponse,
+    deleteUserGoalSuccess
+  } = useDeleteGoal();
 
-  const handleDelete = () => {
-    console.log('handle delete');
+  const handleDelete = (goalId: string) => {
+    console.log('handle delete, with id: ', goalId);
+    deleteUserGoal(goalId, {
+      onSuccess: () => {
+        queryClient.invalidateQueries(['userGoals'])
+        // console.log('successful delete!')
+      }
+    })
   }
 
   if (status === 'unauthenticated') {
@@ -66,7 +82,7 @@ const GoalsIndexPage = () => {
                   goalEndDate={goal.goalEndDate}
                   goalRequiredSuccessfulDaysPercent={goal.goalRequiredSuccessfulDaysPercent}
                   handleEdit={handleEdit}
-                  handleDelete={handleDelete}
+                  handleDelete={() => handleDelete(goal.goalId)}
                 />
               )
             })}

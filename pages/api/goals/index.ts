@@ -14,8 +14,12 @@ const getUserGoals = async (req: NextApiRequest, res: NextApiResponse) => {
     include: {
       user: {
         include: {
-          Goal: true
-        }
+          Goal: {
+            orderBy: {
+              createdAt: 'asc'
+            }
+          }
+        },
       }
     }
   });
