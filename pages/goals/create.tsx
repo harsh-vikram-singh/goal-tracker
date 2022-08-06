@@ -31,20 +31,17 @@ const CreateGoal = () => {
   const { data: userData, status} = useSession();
 
   const handleFormDataUpdate = (data: FormDateUpdateShape) => {
-    console.log('data: ', data);
     setGoalData(goal => {
       return {...goal, ...{[data.key]: data.value}}
     }
   )};
 
   const handleResetClick = () => {
-    console.log('reset button clicked');
     setGoalData(emptyGoalData);
   }
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    console.log('goal data:', goalData );
     const endPoint = '/api/goals/create' // remove the hard coded string
     const userGoalData = {...goalData, userEmailId: userData?.user?.email}
     const options = {
@@ -56,7 +53,6 @@ const CreateGoal = () => {
     };
     const response = await fetch(endPoint, options);
     const result = await response.json();
-    console.log('result: ', result);
   }
   return (
     <div className="grid grid-cols-3 gap-4">

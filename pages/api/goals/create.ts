@@ -9,8 +9,6 @@ export default async function GoalCreateHandler(req: NextApiRequest , res: NextA
     }
   })
   // const {body: goalData} = req.body;
-  // console.log('goal data: ', goalData);
-  console.log(user);
   const {
     goalTitle,
     goalDescription,

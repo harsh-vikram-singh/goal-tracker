@@ -22,7 +22,6 @@ const GoalsIndexPage = () => {
   } = useUserAllGoals();
 
 
-  console.log('user goals: ', userGoalsData);
   const createNewGoalClickHandler = () => {
     console.log('click');
   }
@@ -39,11 +38,9 @@ const GoalsIndexPage = () => {
   } = useDeleteGoal();
 
   const handleDelete = (goalId: string) => {
-    console.log('handle delete, with id: ', goalId);
     deleteUserGoal(goalId, {
       onSuccess: () => {
         queryClient.invalidateQueries(['userGoals'])
-        // console.log('successful delete!')
       }
     })
   }

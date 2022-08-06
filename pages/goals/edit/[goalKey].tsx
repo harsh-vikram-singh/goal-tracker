@@ -20,22 +20,6 @@ const EditGoalPage = () => {
   const { goalKey } = router.query;
   const goalIndex = parseInt(goalKey as string);
 
-  // useEffect(() => {
-  //   const testFetch = async () => {
-  //     const response = await fetch('/api/goals/edit', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json'
-  //       },
-  //       body: JSON.stringify({messageFromClient: 'Hello, server'})
-  //     });
-  //     const result = await response.json();
-  //     console.log('response from server in test effect: ', result);
-  //   };
-  //   console.log('triggering test fetch from effect')
-  //   testFetch();
-  // })
-
   const {
     isUserGoalsError,
     isUserGoalsLoading,
@@ -59,14 +43,10 @@ const EditGoalPage = () => {
    } = usePatchUserGoal();
   const handleUpdateClick = (e) => {
     e.preventDefault();
-    mutateUserGoal(editGoalData, {
-      onSuccess: (data) => console.log('from onSuccess callback: ', data),
-      onError: error => console.log('error from onError of patch user data: ', error)
-    })
+    mutateUserGoal(editGoalData)
   };
 
   const handleChange = (changeShape: {key: string; value: string}) => {
-    console.log(changeShape)
     setEditGoalData(goalData => {
       return {
         ...goalData,
@@ -80,8 +60,8 @@ const EditGoalPage = () => {
   }
   if (selectedGoalsData) {
     return (
-      <NarrowContainer className="mt-10 max-w-xl shadow p-4 border rounded-lg">
-        <h1 className='underline'>Edit Goal Deatils </h1>
+      <NarrowContainer className="mt-10 max-w-lg shadow p-4 border rounded-lg">
+        <h1 className='underline'>Edit Goal Details </h1>
         <form className="flex flex-col gap-10 mt-10" onSubmit={e => {handleUpdateClick(e)}}>
           <div>
             <label>

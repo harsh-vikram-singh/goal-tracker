@@ -3,7 +3,6 @@ import { ROUTES } from "apiRoutes";
 
 const patchUserGoal = async (goalData) => {
   const url = ROUTES.GOAL.UPDATE;
-  console.log('from fetch func: goalData: ', goalData);
   const response = await fetch(url, {
     method: 'POST',
     headers: {
@@ -21,11 +20,7 @@ const usePatchUserGoal = () => {
     isError: isEditUserGoalError,
     isLoading: isEditUserGoalLoading,
     isSuccess: isEditUserGoalSuccess,
-  } = useMutation(patchUserGoal, {
-    onMutate: (goalData) => {
-      console.log('triggering mutation with : ', goalData);
-    }
-  });
+  } = useMutation(patchUserGoal);
   return {
     mutateUserGoal,
     editedUserGoal,

@@ -27,7 +27,6 @@ const editGoalHandler = async (req: NextApiRequest, res: NextApiResponse) => {
       goalRequiredSuccessfulDaysPercent
     }
   })
-  console.log('saved goal: ', savedGoal);
   res.json({updatedGoalData: body});
 }
 
