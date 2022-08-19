@@ -4,7 +4,6 @@ import db from 'prisma/client';
 
 const editGoalHandler = async (req: NextApiRequest, res: NextApiResponse) => {
   const { body }  = req;
-  console.log('body: ', body);
   let {
     goalTitle,
     goalDescription,

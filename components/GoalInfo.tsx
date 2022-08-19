@@ -33,7 +33,10 @@ const GoalInfo = ({
           </div>
         </div>
         <div className='flex gap-10 items-center justify-end'>
-          <button className='border p-2 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>Update Progress</button>
+          {/* <button className='border p-2 rounded hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'>Update Progress</button> */}
+          <Link href={`/progress/${goalId}`}>
+            <a>Update Progress</a>
+          </Link>
           {/* <button className='border w-auto p-2 px-4 rounded shadow hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500' onClick={handleEdit}>
             Edit
           </button> */}
