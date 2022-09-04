@@ -3,6 +3,8 @@ import InputWithValidationError from "components/InputWithValidationError";
 import TextAreaWithMaxLength from "components/TextAreaWithMaxLength";
 import { useSession } from "next-auth/react";
 import NarrowContainer from "components/layouts/NarrowContainer";
+import next from "next";
+import Router from "next/router";
 
 export interface CreateGoalDataInterface {
   goalTitle: string;
@@ -53,11 +55,13 @@ const CreateGoal = () => {
       body: JSON.stringify(userGoalData)
     };
     const response = await fetch(endPoint, options);
-    const result = await response.json();
+    if (response.ok) {
+      Router.push('/goals');
+    }
   }
   return (
-      <NarrowContainer className="max-w-lg border shadow-lg hover:shadow-cyan-500/50 mt-10 p-8 rounded-lg flex flex-col">
-        <h4>Create Goal Page</h4>
+      <NarrowContainer className="max-w-xl border  hover:shadow-cyan-500/50 mt-10 p-8 rounded-lg flex flex-col">
+        <h4 className='text-xl mb-4'>Create Goal</h4>
         <form className="pt-4" onSubmit={e => handleSubmit(e)}
           onChange={e => handleFormDataUpdate({key: e.target.name, value: e.target.value})} 
         >
