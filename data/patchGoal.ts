@@ -1,7 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 import { ROUTES } from "apiRoutes";
 
-const patchUserGoal = async (goalData) => {
+const patchUserGoal = async (goalData: any) => {
   const url = ROUTES.GOAL.UPDATE;
   const response = await fetch(url, {
     method: 'POST',

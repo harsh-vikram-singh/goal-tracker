@@ -28,8 +28,8 @@ const EditGoalPage = () => {
   } = useUserAllGoals();
 
   const selectedGoalsData = userGoalsData?.goals[goalIndex];
-  selectedGoalsData.goalStartDate = selectedGoalsData.goalStartDate.split('T')[0];
-  selectedGoalsData.goalEndDate = selectedGoalsData.goalEndDate.split('T')[0];
+  selectedGoalsData && (selectedGoalsData.goalStartDate = selectedGoalsData?.goalStartDate.split('T')[0]);
+  selectedGoalsData && (selectedGoalsData.goalEndDate = selectedGoalsData?.goalEndDate.split('T')[0]);
   if (selectedGoalsData && editGoalData.goalIndex === -1) {
     setEditGoalData(selectedGoalsData);
   }

@@ -10,10 +10,10 @@ const updateProgressForTheDay = async (req: NextApiRequest, res: NextApiResponse
       id: goalId
     }
   });
-  const userId = goalData && goalData.userId;
+  const userId = goalData && goalData?.userId;
   const progressData = await db.progressTracker.create({
     data: {
-      userId,
+      userId: userId,
       goalId,
       Status: status,
       entryDate: new Date(progressDate)

@@ -21,7 +21,7 @@ const Signin = ({authProviders}: SigninProps) => {
                       <div className='flex flex-col gap-4'>
                       <p className="text-xl font-medium text-gray-900">Sign in</p>
                       {Object.values(authProviders).map((provider) => (
-                        <LoginButton id={provider.id} name={provider.name} onClick={() => signIn(provider.id)}/>
+                        <LoginButton key={provider.id} id={provider.id} name={provider.name} onClick={() => signIn(provider.id)}/>
                       ))}
                       </div>
                     </div>

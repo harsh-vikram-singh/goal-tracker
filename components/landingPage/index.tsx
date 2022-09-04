@@ -3,7 +3,7 @@ import NavBar from 'components/navbar'
 import Link from 'next/link';
 import Signin from 'components/signin';
 
-export default function LandingPage({authProviders}) {
+export default function LandingPage({authProviders}: any) {
   const {data: sessionData, status:authenticatedStatus}= useSession();
   console.log('user data: ', sessionData);
   return (
